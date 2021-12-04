@@ -29,13 +29,13 @@ router.post('', validate("createUser"), createUser)
  *  "password": "superDuperPassword"
  * }
  */
-router.post('/login', loginUser)
+router.post('/login', validate("loginUser"), loginUser)
 
 /**
  * Logout user from the system by deleting his token.
  * Pay attention it should be authenticated user 
  */
-router.post('/logout', logoutUser)
+router.post('/logout', auth, logoutUser)
 
 
 /**
