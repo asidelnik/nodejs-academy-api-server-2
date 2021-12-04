@@ -4,6 +4,6 @@ function Unauthorized(message) {
     error.isOperational = true
     return error
   }
-  
+
   
   module.exports = Unauthorized
