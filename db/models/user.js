@@ -72,6 +72,12 @@ userSchema.methods.generateAuthToken = async function () {
     return token
 }
 
+// userSchema.methods.removeUserToken = async function (token) {
+
+//     // jwt.TokenExpiredError('Expired', new Date())
+//     // .removeUserToken(token)
+// }
+
 
 const User = mongoose.model('User', userSchema)
 
