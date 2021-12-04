@@ -17,7 +17,7 @@ const connect = async () => {
   const { DB_USER, DB_PASS, DB_HOST } = process.env
   return mongoose
     .connect(
-      `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/moviesDb?retryWrites=true&w=majority`
+      `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/moviesdb?retryWrites=true&w=majority`
     )
     .then(() => console.log(` 🍃 mongo-db connected`))
     .catch(console.log)
