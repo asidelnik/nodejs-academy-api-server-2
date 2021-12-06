@@ -1,5 +1,5 @@
 const User = require('./../db/models/user')
-
+const mongoDriver = require('../db/mongoDriver')
 
 
 
@@ -19,14 +19,18 @@ async function getUser(email, password) {
     return user
 }
 
-async function deleteToken(user, token) {
-    return await user.removeUserToken(token)
+async function removeUserToken(id) {
+    return await User.removeUserToken(id)
 }
 
+async function deleteUser(id) {
+    return await User.deleteUser(id)
+}
 
 module.exports = {
     createUser,
     generateUserToken,
     getUser,
-    deleteToken,
+    removeUserToken,
+    deleteUser,
 }
