@@ -42,6 +42,6 @@ router.post('/logout', auth, logoutUser)
  * Delete user from the system at all
  * Pay attention it should be authenticated user 
  */
-router.delete('/me', auth, deleteUser)
+router.delete('/:id', auth, deleteUser)
 
 module.exports = router
