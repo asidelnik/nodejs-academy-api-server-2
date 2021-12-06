@@ -72,12 +72,19 @@ userSchema.methods.generateAuthToken = async function () {
     return token
 }
 
-// userSchema.methods.removeUserToken = async function (token) {
+userSchema.statics.removeUserToken = async function(id) {
+    const user = await User.findByIdAndUpdate(id, {$unset: {token:1}}, { returnDocument: 'after' })
+      if (user) {
+          return user//.value
+      } 
+  }
 
-//     // jwt.TokenExpiredError('Expired', new Date())
-//     // .removeUserToken(token)
-// }
-
+userSchema.statics.deleteUser = async function(id) {
+    const user = await User.deleteOne({_id:id}, {returnDocument: true} ) //.findByIdAndUpdate(id, {$unset: {token:1}}, { returnDocument: 'after' })
+      if (user) {
+          return user
+      } 
+  }
 
 const User = mongoose.model('User', userSchema)
 
