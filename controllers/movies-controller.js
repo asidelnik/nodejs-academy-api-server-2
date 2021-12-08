@@ -1,6 +1,6 @@
 const InvalidMovieParamError = require('../errors/InvalidParamError')
 const InternalError = require('../errors/InvalidParamError')
-const { body, validationResult } = require('express-validator')
+const { body, param, message, validationResult } = require('express-validator')
 const MoviesService = require('../services/movies-service')
 const DEFAULT_OFFSET = 0
 const DEFAULT_LIMIT = 20
@@ -133,14 +133,38 @@ function validate(method) {
     }
     //TODO add necessary funciton to validate every request: https://express-validator.github.io/docs/
     //TODO 1. add "getById" validation
-    //TODO 2. add "upsertMovie" validation
-    //TODO 3. add "modifyMovie" validation
-    //TODO 4. add "deleteMovie" validation
     case 'getById': {
-
+      return [
+        param('id', 'Invalid id').exists().isNumeric()
+      ]
+    }
+    case 'deleteMovie': {
+      return [
+        param('id', "Invalid id").exists().isNumeric()
+      ]
+    }
+    case 'upsertMovie': {
+      return [
+        body('title', 'title doesn\'t exists').exists().isString().escape(),
+        body('img', 'img is not exists or not valid url').exists().isURL(),
+        body('synopsis', 'synopsis doesn\'t exists').exists().isString().escape(),
+        body('rating', 'rating doesn\'t exists or not numeric').exists().isNumeric(),
+        body('year', 'year doesn\'t exists or not numeric').exists().isNumeric(),
+      ]
+    }
+    case 'modifyMovie': {
+      return [
+        param('id', "Invalid id").exists().isNumeric(),
+        body('title', 'title doesn\'t exists').optional().isString().escape(),
+        body('img', 'img is not exists or not valid url').optional().isURL(),
+        body('synopsis', 'synopsis doesn\'t exists').optional().isString().escape(),
+        body('rating', 'rating doesn\'t exists or not numeric').optional().isNumeric(),
+        body('year', 'year doesn\'t exists or not numeric').optional().isNumeric(),
+      ]
     }
   }
 }
 
 
 module.exports = { getMovies, getById, createMovie, upsertMovie, modifyMovie, deleteMovie, validate }
+//"title": "The Shawshank Redemption - 12",

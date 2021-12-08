@@ -27,8 +27,7 @@ app.get('/', (req, res, next) => {
   })
 })
 
-app
-  .get('/query', (req, res, next) => {
+app.get('/query', (req, res, next) => {
     console.log(req.query)
     const { test } = req.query
     // do what we need with the param

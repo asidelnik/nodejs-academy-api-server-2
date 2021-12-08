@@ -11,8 +11,8 @@ dbDocArray.limit = sinon.spy()
 
 beforeEach(() => {
   //TODO you find it :) Uncomment it and see that some tests back to work. some of them still need to be fixed
-  // sinon.stub(User, "findOne").returns(User({ name: "yoni", email: "bubu", password: "sdadd", token: "asdasd" }))
-  // sinon.stub(jwt, "verify").returns({})
+  sinon.stub(User, "findOne").returns(User({ name: "yoni", email: "bubu", password: "sdadd", token: "asdasd" }))
+  sinon.stub(jwt, "verify").returns({})
   sinon.stub(mongoose)
 })
 

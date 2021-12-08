@@ -3,6 +3,7 @@ const { loadAllData, Movie } = require('../db/')
 const InternalError = require('../errors/InternalErorr')
 const Unauthorized = require('../errors/UnauthorizedError')
 process.env.RESET_DB && loadAllData(INITIAL_MOVIES.movies)
+const mongoDriver = require('../db/mongoDriver')
 
 async function getAllMovies(offset, limit) {
   const request = Movie.find()
@@ -16,7 +17,9 @@ async function getAllMovies(offset, limit) {
 }
 
 async function updateMovie(id, { title, img, synopsis, rating, year }) {
-  const newMovieObject = await Movie.findOneAndReplace({ movie_id: id }, { title, img, synopsis, rating, year })
+  // const newMovieObject = await Movie.findOneAndReplace({ movie_id: id }, { title, img, synopsis, rating, year })
+  const movie_id = id
+  const newMovieObject = await mongoDriver.updateMovie(movie_id, { title, img, synopsis, rating, year })
   return newMovieObject
 }
 

@@ -33,6 +33,18 @@ async function updateMovieByTitle(client, title, update) {
   console.log(`${result.modifiedCount} document(s) was/were updated.`)
 }
 
+
+async function updateMovie(movie_id, { title, img, synopsis, rating, year }) {
+  const result = await client
+      .db('moviesdb')
+      .collection('movies')
+      .findOneAndReplace({ movie_id }, { movie_id, title, img, synopsis, rating, year }, { returnDocument: 'after' })
+      
+  if (result) {
+      return result.value
+  } 
+}
+
 async function findMovieByTitle(client, title) {
   re = new RegExp(title, 'i')
   console.log(re)
@@ -92,5 +104,5 @@ const connect = async () => {
 connect()
 
 module.exports = {
-  client,
+  client, updateMovie
 }
